@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(value = { "cm.wiliam.cursomc" })
+@ComponentScan(value = { "/cursomc/src/main/java/com/wiliam/cursomc" })
 public class CursomcApplication {
 
 	public static void main(String[] args) {
