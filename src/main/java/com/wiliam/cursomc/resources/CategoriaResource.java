@@ -1,4 +1,4 @@
-package com.wiliam.cursomc.resource;
+package com.wiliam.cursomc.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
