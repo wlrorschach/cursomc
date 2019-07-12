@@ -3,10 +3,12 @@ package com.wiliam.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.wiliam.cursomc.domain.Categoria;
 import com.wiliam.cursomc.repositories.CategoriaRepository;
+import com.wiliam.cursomc.services.exceptions.DataIntegrityException;
 import com.wiliam.cursomc.services.exceptions.ObjectNotFoundException;
 
 // anotacao responsavel por dizer ao spring que esta classe eh uma classe de servico
@@ -43,5 +45,15 @@ public class CategoriaService {
 		find(obj.getId());
 		// o metodo 'save' atualiza o registro quando o obj possuir um 'id'
 		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		// 
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+		}
 	}
 }
