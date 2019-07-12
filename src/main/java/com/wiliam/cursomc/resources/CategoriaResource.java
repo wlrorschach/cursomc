@@ -1,6 +1,8 @@
 package com.wiliam.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.wiliam.cursomc.domain.Categoria;
+import com.wiliam.cursomc.dto.CategoriaDTO;
 import com.wiliam.cursomc.services.CategoriaService;
 
 // notacao diz ao spring que esta classe eh um Rest controller
@@ -59,5 +62,14 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable() Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = service.findAll();
+		
+		List<CategoriaDTO> listaDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		//List<CategoriaDTO> listaDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList()));
+		return ResponseEntity.ok().body(listaDto);
 	}
 }
