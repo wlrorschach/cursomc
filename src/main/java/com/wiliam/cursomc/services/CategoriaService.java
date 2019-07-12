@@ -17,7 +17,7 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
 
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		// o metodo 'findById()' eh responsavel por buscar  um elemento por id e retornarnar um Optional
 		Optional<Categoria> obj = repo.findById(id);
 		
@@ -29,6 +29,10 @@ public class CategoriaService {
 	
 	// metodo reponsável por inserir uma nova Categoria
 	public Categoria insert(Categoria obj) {
+		/* http status code : quando eh uma requisicao para insercao, o codigo é 201
+		ao inserir uma nova categoria, devo fornecer a nova URI como resposta a requisicao
+		*/
+		
 		obj.setId(null);
 		// o metodo 'save' insere um novo registro quando o id == null
 		return repo.save(obj);
@@ -36,7 +40,7 @@ public class CategoriaService {
 
 	// metodo responsável por atualizar o registro
 	public Categoria update(Categoria obj) {
-
+		find(obj.getId());
 		// o metodo 'save' atualiza o registro quando o obj possuir um 'id'
 		return repo.save(obj);
 	}

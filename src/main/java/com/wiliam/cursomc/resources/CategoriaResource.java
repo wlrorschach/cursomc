@@ -25,13 +25,12 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaService service;
-
 	
 	//@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	// o @GetMapping eh um atalho para o mapeamento acima
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> find(@PathVariable() Integer id) {
-		Categoria obj = service.buscar(id);
+	public ResponseEntity<Categoria> find(@PathVariable() Integer id) {
+		Categoria obj = service.find(id);
 
 		return ResponseEntity.ok().body(obj);
 	}
@@ -40,6 +39,8 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
 		obj = service.insert(obj);
+		//  '.fromCurrentRequest()' retorna a URI utilizada para inserir
+		//
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
