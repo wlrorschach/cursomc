@@ -26,7 +26,7 @@ public class CategoriaService {
 
 	public Categoria find(Integer id) {
 		// o metodo 'findById()' eh responsavel por buscar um elemento por id e
-		// retornarnar um Optional
+		// retornar um Optional
 		Optional<Categoria> obj = repo.findById(id);
 
 		// o metodo .orElseThrow() retorna um objeto e,m caso este seja null, lanca a
